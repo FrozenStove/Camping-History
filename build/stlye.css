@@ -1,0 +1,44 @@
+/* div {
+    background-color: aqua;
+} */
+
+h1 {
+    background-color: aquamarine;
+}
+* {
+    border: 1px solid black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#top-half {
+    display: flex;
+}
+
+#side-bar {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 30%;
+    height:500px;
+}
+
+#the-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#comment-input {
+    height: 100px;
+}
+
+input {
+    margin: 5px
+}
+
+h2 {
+    text-align: center;
+    border: 0px;
+}
+
+#map {
+    flex-grow: 1;
+    background-color: cadetblue;
+}
