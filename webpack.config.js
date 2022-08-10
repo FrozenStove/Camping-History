@@ -1,6 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// client/index.js
+const { SourceMapDevToolPlugin } = require('webpack');
+const ArcGISPlugin = require("@arcgis/webpack-plugin");
+
+
+//https://stackoverflow.com/questions/61767538/devtools-failed-to-load-sourcemap-for-webpack-node-modules-js-map-http-e
 module.exports = {
     entry: './client/index.js',
     output: {
@@ -11,8 +15,17 @@ module.exports = {
     plugins: [new HtmlWebpackPlugin({        
         filename: 'bundle.html',        
         template: 'index.html'
-    }
-    )], 
+    }),
+    new SourceMapDevToolPlugin({
+        filename: "[file].map"
+    }),
+    new ArcGISPlugin({
+        // features: {
+        //     "3d": false
+        // },
+        locales: ['en'],
+    })
+    ], 
     devServer: {
         static: {
           publicPath: '/',
@@ -40,6 +53,11 @@ module.exports = {
                     "sass-loader", // Sass to CSS
                 ],
             },
+            {
+                test: /\.js$/,
+                enforce: 'pre',
+                use: ['source-map-loader'],
+              },
         ],
     },
 };

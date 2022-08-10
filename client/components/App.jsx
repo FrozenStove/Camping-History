@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import HistoryCard from "./historyCard.jsx"
+import GisMap from "./GisMap.jsx";
 
-require(["esri/config","esri/Map", "esri/views/MapView"], function (esriConfig,Map, MapView) {
 
-});
 class App extends Component {
     constructor(props) {
         super(props)
@@ -19,13 +18,13 @@ class App extends Component {
         this.clearClick = this.clearClick.bind(this);
     }
     handleClick() {
-        const postBody = { 
-        "siteName": document.getElementById('site-input').value,
-        "visitDate": document.getElementById('date-input').value,
-        "username": document.getElementById('name-input').value,
-        "comment": document.getElementById('comment-input').value            
+        const postBody = {
+            "siteName": document.getElementById('site-input').value,
+            "visitDate": document.getElementById('date-input').value,
+            "username": document.getElementById('name-input').value,
+            "comment": document.getElementById('comment-input').value
         }
-        if (this.state.formAction === 'PATCH'){
+        if (this.state.formAction === 'PATCH') {
             postBody._id = this.state.updateId;
         }
         console.log(postBody)
@@ -48,22 +47,22 @@ class App extends Component {
     }
 
     createClick() {
-        this.setState({formAction: 'POST'});
+        this.setState({ formAction: 'POST' });
         console.log('Post!');
-    }    
+    }
 
     updateClick() {
-        this.setState({formAction: 'PATCH'});
+        this.setState({ formAction: 'PATCH' });
         // this.state.formAction = 'PATCH';
         console.log('Patch!');
     }
 
-    selectClick(i, _id ) {
-        this.setState({ selected: i , updateId: _id})
+    selectClick(i, _id) {
+        this.setState({ selected: i, updateId: _id })
     }
 
     clearClick() {
-        this.setState({ selected: undefined , updateId: undefined})
+        this.setState({ selected: undefined, updateId: undefined })
     }
 
     deleteClick(id) {
@@ -123,9 +122,7 @@ class App extends Component {
         return (
             <>
                 <div id="top-half">
-                    <div id="map">
-                        <p>temporary ahaha text</p>
-                    </div>
+                    <GisMap></GisMap>
                     <div id="side-bar">
                         <h2>Add a New Visit Here!</h2>
                         <form id="the-form"
@@ -143,7 +140,7 @@ class App extends Component {
                         <div id="selected">
                             {currentSelection}
                         </div>
-                            <button id="clear-button" onClick={this.clearClick} >Clear Selection</button>
+                        <button id="clear-button" onClick={this.clearClick} >Clear Selection</button>
                     </div>
                 </div>
                 <div id="history">

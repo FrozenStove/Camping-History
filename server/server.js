@@ -13,10 +13,16 @@ app.use(cookieParser())
 
 
 app.use('/build', express.static(path.join(__dirname, '../build')));
+app.get('/style.css',
+    (req, res) => {
+        return res.status(200).sendFile(path.resolve(__dirname, '../style.css'));
+    }
+)
 
 // handle get requests
 app.get('/',
     (req, res) => {
+        console.log('baseget', path.resolve(__dirname, '../index.html'))
         return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
     }
 )
