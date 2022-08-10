@@ -109,6 +109,7 @@ build/*.map
 build/*.html
 
 server/model/sql-uri.js
+server/routers/googleclient.js
 
 DS_Store
 

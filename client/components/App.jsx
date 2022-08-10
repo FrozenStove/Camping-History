@@ -121,6 +121,10 @@ class App extends Component {
         }
         return (
             <>
+                <div id="nav-bar">
+                <h1>Camping History</h1>
+                <button><img src="../assets/google.jpg"></img> Sign in with Google</button>
+                </div>
                 <div id="top-half">
                     <GisMap></GisMap>
                     <div id="side-bar">

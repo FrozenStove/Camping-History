@@ -2,17 +2,19 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser')
-const dbController = require('./controllers/dbController.js')
+const dbController = require('./controllers/dbController.js');
+const authRouter = require('./routers/authRouter.js')
 
 const PORT = 3000;
-
 
 app.use(express.json())
 app.use(cookieParser())
 
-
+app.use('/auth', authRouter)
 
 app.use('/build', express.static(path.join(__dirname, '../build')));
+app.use('/assets', express.static(path.join(__dirname, '../client/assets')));
+
 app.get('/style.css',
     (req, res) => {
         return res.status(200).sendFile(path.resolve(__dirname, '../style.css'));
@@ -22,7 +24,7 @@ app.get('/style.css',
 // handle get requests
 app.get('/',
     (req, res) => {
-        console.log('baseget', path.resolve(__dirname, '../index.html'))
+        // console.log('baseget', path.resolve(__dirname, '../index.html'))
         return res.status(200).sendFile(path.resolve(__dirname, '../index.html'));
     }
 )
@@ -84,6 +86,3 @@ app.listen(PORT, () => {
 });
 
 module.exports = app;
-
-
-

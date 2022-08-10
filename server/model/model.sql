@@ -10,6 +10,9 @@ CREATE TABLE  public.userData (
   OIDS=FALSE
 );
 
+alter table userData
+add "user_id" bigint not null
+;
 
 CREATE TABLE public.userAccounts (
 	"_id" serial NOT NULL,

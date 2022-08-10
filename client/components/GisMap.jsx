@@ -20,7 +20,7 @@ class GisMap extends Component {
     }
 
     render() {
-        console.log(esriConfig)
+        // console.log(esriConfig)
         esriConfig.apiKey = "AAPKec24e4d4b57446a980bc8938cccb1ed2bb1PKtJrlt66E8A6XVF3Ji_xxaVGFlYRw3gTHIphMe5arHUSFJCt2TpYzo7BSEyN";
         const map = new MapGis({
             basemap: "arcgis-topographic" // Basemap layer service

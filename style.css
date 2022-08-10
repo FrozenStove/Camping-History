@@ -3,9 +3,7 @@
 } */
 @import "https://js.arcgis.com/4.24/@arcgis/core/assets/esri/themes/dark/main.css";
 
-h1 {
-    background-color: aquamarine;
-}
+
 * {
     /* border: 1px solid black; */
     font-family: Arial, Helvetica, sans-serif;
@@ -82,4 +80,22 @@ h2 {
 #clear-button {
     max-width: 125px;
     align-self: center;
+}
+
+#nav-bar {
+    display: flex;
+    justify-content: space-between;
+    background-color: aquamarine;
+    /* max-height: 50px; */
+}
+
+#nav-bar img{
+    max-height: 50px;
+}
+
+#nav-bar button {
+    background-color: #f0f0f0;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }

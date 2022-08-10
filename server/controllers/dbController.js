@@ -6,9 +6,9 @@ const db = {}
 db.addVisit = (req, res, next) => {
     // console.log('thebody: ', req.body);
     const { siteName, visitDate, comment, username } = req.body;
-    const sqlAddVisit = `INSERT INTO userData (site_name, visit_date, comment, username, site_id)
-    VALUES ($1, $2, $3, $4, $5)`;
-    const insertArray = [siteName, visitDate, comment, username, 1];
+    const sqlAddVisit = `INSERT INTO userData (site_name, visit_date, comment, username, site_id, user_id)
+    VALUES ($1, $2, $3, $4, $5, $6)`;
+    const insertArray = [siteName, visitDate, comment, username, 1, 1];
 
     userDB.query(sqlAddVisit, insertArray)
         .then((data) => next())
@@ -25,12 +25,11 @@ db.addVisit = (req, res, next) => {
 
 
 db.getVisit = (req, res, next) => {
-    // console.log('lebody', req.body);
-    // const { siteName, visitDate, comment, username } = req.body;
-    const sqlGetVisit = `SELECT * FROM userData ORDER BY _id;`;
-    // const insertArray = [siteName, visitDate, comment, username, 1];
+    const sqlGetVisit = `SELECT * FROM userData WHERE user_id=$1 ORDER BY _id;`;
+    // THIS NEEDS TO BE FIXED FOR USER ACCOUNTS AND OAUTH
+    const insertArray = [1];
 
-    userDB.query(sqlGetVisit)
+    userDB.query(sqlGetVisit, insertArray)
         .then((data) => {
             // console.log(data)
             res.locals.data = data.rows;
