@@ -25,10 +25,9 @@ app.get('/',
 app.get('/getvisit',
     dbController.getVisit,
     (req, res) => {
-        return res.status(200).send('Success!')
+        return res.status(200).send(res.locals.data)
     }
 );
-
 
 // handle post requests to the database
 app.post('/addvisit',
@@ -37,6 +36,22 @@ app.post('/addvisit',
         return res.status(200).send('Success!')
     }
 );
+
+app.patch('/addvisit',
+    dbController.patchVisit,
+    (req, res) => {
+        return res.status(200).send('Success!')
+    }
+);
+
+// remove visit
+app.delete('/deletevisit',
+    dbController.deleteVisit,
+    dbController.getVisit,
+    (req, res) => {
+        return res.status(200).send(res.locals.data)
+    }
+)
 
 
 
