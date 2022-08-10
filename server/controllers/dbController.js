@@ -1,12 +1,10 @@
 const userDB = require('../model/model.js')
-// const 
 
 const db = {}
 
 // we are assuming all of the post request data will be in the body
-
 db.addVisit = (req, res, next) => {
-    console.log('thebody: ', req.body);
+    // console.log('thebody: ', req.body);
     const { siteName, visitDate, comment, username } = req.body;
     const sqlAddVisit = `INSERT INTO userData (site_name, visit_date, comment, username, site_id)
     VALUES ($1, $2, $3, $4, $5)`;
@@ -29,7 +27,7 @@ db.addVisit = (req, res, next) => {
 db.getVisit = (req, res, next) => {
     // console.log('lebody', req.body);
     // const { siteName, visitDate, comment, username } = req.body;
-    const sqlGetVisit = `SELECT * FROM userData;`;
+    const sqlGetVisit = `SELECT * FROM userData ORDER BY _id;`;
     // const insertArray = [siteName, visitDate, comment, username, 1];
 
     userDB.query(sqlGetVisit)
@@ -49,10 +47,24 @@ db.getVisit = (req, res, next) => {
 }
 
 db.patchVisit = (req, res, next) => {
+    if (!req.body._id) return next({
+        log: 'No ID provided',
+        status: 204,
+        message: { err: 'No ID Provided' },
+    });
     const sqlPatchVisit = `
+    UPDATE userData
+    SET site_name = $1, visit_date = $2, comment = $3, username = $4
+    WHERE _id=$5
     `
-    userDB.query(sqlPatchVisit)
-    .then()
+    const { _id, siteName, visitDate, comment, username } = req.body;
+    const insertArray = [siteName, visitDate, comment, username, _id];
+    console.log(req.body)
+    userDB.query(sqlPatchVisit, insertArray)
+    .then( (data) =>{
+        console.log(data);
+        return next();
+    })
     .catch((err) => {
         console.log(err)
         return next({

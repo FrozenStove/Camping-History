@@ -32,15 +32,17 @@ app.get('/getvisit',
 // handle post requests to the database
 app.post('/addvisit',
     dbController.addVisit,
+    dbController.getVisit,
     (req, res) => {
-        return res.status(200).send('Success!')
+        return res.status(200).send(res.locals.data)
     }
 );
 
 app.patch('/addvisit',
     dbController.patchVisit,
+    dbController.getVisit,
     (req, res) => {
-        return res.status(200).send('Success!')
+        return res.status(200).send(res.locals.data)
     }
 );
 

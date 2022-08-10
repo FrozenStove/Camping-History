@@ -8,10 +8,10 @@ class HistoryCard extends Component {
 
     render() {
         const { _id, site_name, visit_date, comment, username } = this.props.history;
-        console.log('hiscards', this.props)
+        // console.log('hiscards', this.props)
         // const deleteClick = this.props.deleteClick;
         return (
-            <div className="history-card" id={_id}>
+            <div className="history-card" id={_id} onClick={() => this.props.selectClick(this.props.i, _id)}>
                 <p label="Camp Site">Camp Site: {site_name}</p>
                 <p label="Date">Date: {visit_date}</p>
                 <p label="Comments">Comments: {comment}</p>
