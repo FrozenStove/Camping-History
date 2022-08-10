@@ -9,3 +9,14 @@ CREATE TABLE  public.userData (
 ) WITH (
   OIDS=FALSE
 );
+
+
+CREATE TABLE public.userAccounts (
+	"_id" serial NOT NULL,
+	"username" varchar NOT NULL,
+	"password" varchar NOT NULL,
+	"email" varchar NOT NULL,
+	CONSTRAINT "userAccounts_pk" PRIMARY KEY ("_id")
+) WITH (
+  OIDS=FALSE
+)
