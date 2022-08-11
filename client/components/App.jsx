@@ -11,12 +11,13 @@ class App extends Component {
             formAction: 'POST',
             history: [],
             selected: 0,
-            username: null
+            username: {username: undefined, user_id: undefined}
         }
         this.createClick = this.createClick.bind(this);
         this.updateClick = this.updateClick.bind(this);
         this.deleteClick = this.deleteClick.bind(this);
         this.selectClick = this.selectClick.bind(this);
+        this.getUsername = this.getUsername.bind(this);
         this.clearClick = this.clearClick.bind(this);
         this.loginClick = this.loginClick.bind(this);
     }
@@ -26,8 +27,12 @@ class App extends Component {
             "visitDate": document.getElementById('date-input').value,
             "username": document.getElementById('name-input').value,
             "comment": document.getElementById('comment-input').value,
-            "user_id": this.state.username.user_id 
+            // "user_id": this.state.username.user_id 
         }
+        if (this.state.username){
+            postBody.user_id = this.state.username.user_id;
+        }
+        console.log('currentstate: ', this.state)
         if (this.state.formAction === 'PATCH') {
             postBody._id = this.state.updateId;
         }
@@ -90,13 +95,21 @@ class App extends Component {
     }
 
     getHistory() {
+        const getBody = {
+            "user_id": this.state.username.user_id 
+        }
+        // need to make this a post because chrome wont let us get with a body
         const getOptions = {
-            method: 'GET'
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(getBody)
         }
         fetch('/getvisit', getOptions)
             .then(resp => resp.json())
             .then((data) => {
-                // console.log(data);
+                console.log(data);
                 this.setState({ history: data.data, username: data.username })
                 // console.log(this.state.history)
                 // this.state.history.push(data);
@@ -123,26 +136,29 @@ class App extends Component {
 
     loginClick(){
         const postBody = {
-            "siteName": document.getElementById('site-input').value,
-            "visitDate": document.getElementById('date-input').value,
-            "username": document.getElementById('name-input').value,
-            "comment": document.getElementById('comment-input').value
+            "username": document.getElementById('login-username').value,
+            "password": document.getElementById('login-password').value
         }
 
-        // console.log(postBody)
+        console.log('login postbody',postBody)
         const postOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(postBody)
+            body: JSON.stringify(postBody),
+            credentials: 'include'
         }
-        // console.log(postOptions);
+        console.log('login post option', postOptions);
         fetch('/account/login', postOptions)
             .then(resp => resp.json())
             .then((data) => {
+                console.log(data)
                 // create a popup or alert if status code is 204
-                this.setState({ history: data })
+                this.setState({ username: data })
+            })
+            .then(() => {
+                this.getHistory()
             })
             .catch((error) => console.log(error))
 
@@ -153,7 +169,7 @@ class App extends Component {
         // console.log(this.state.history)
         // console.log('comdidmount')
         this.getHistory();
-        this.getUsername();
+        // this.getUsername();
         // console.log(this.state.history)
 
     }
@@ -171,7 +187,7 @@ class App extends Component {
         }
         let username;
         if (this.state.username) {
-            username = `Welcome ${this.state.username}!`
+            username = `Welcome ${this.state.username.username}!`
         } else {
             username = <LoginForm loginClick={this.loginClick}></LoginForm>
         }

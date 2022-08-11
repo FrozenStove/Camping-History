@@ -36,6 +36,15 @@ app.get('/style.css',
     }
 )
 
+
+app.use('/cookie',
+    (req, res) => {
+        res.cookie('cooks', 'ohhddoo', { httpOnly: true })
+        // console.log('baseget', path.resolve(__dirname, '../index.html'))
+        return res.send('/');
+    }
+)
+
 // handle get requests
 app.get('/',
     (req, res) => {
@@ -45,11 +54,11 @@ app.get('/',
 )
 
 // handle get request to the database
-app.get('/getvisit',
+app.post('/getvisit',
     sessionController.isLoggedIn,
     dbController.getVisit,
     (req, res) => {
-        return res.status(200).send({data: res.locals.data, username: res.locals.username})
+        return res.status(200).send({ data: res.locals.data, username: res.locals.username })
     }
 );
 

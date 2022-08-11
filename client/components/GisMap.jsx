@@ -64,10 +64,10 @@ class GisMap extends Component {
             where: "Species = 'Oak'"
           };
           
-          queryFeatures(options)
-            .then(response => {
-              console.log(response.features.length); // 500
-            });
+        //   queryFeatures(options)
+        //     .then(response => {
+        //       console.log(response.features.length); // 500
+        //     });
         // const queryGeometry = {
         //     x: -118.807,
         //     y: 34.002,

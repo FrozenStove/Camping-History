@@ -1,4 +1,4 @@
-const userDB = require('../models/model.js');
+const userDB = require('../model/model.js');
 
 const userController = {};
 
@@ -37,10 +37,10 @@ userController.verifyUser = (req, res, next) => {
     WHERE username=$1
     AND password=$2`;
     const insertArray = [username, password];
-
+    console.log('Verify User Entered', insertArray)
     userDB.query(sqlAddVisit, insertArray)
         .then((data) => {
-            console.log('verify user data', data)
+            // console.log('verify user data', data)
             if (data.rows.length === 1) {
                 res.locals.success = true;
                 res.locals.username = {username: username, user_id: data.rows[0]._id};
@@ -53,16 +53,16 @@ userController.verifyUser = (req, res, next) => {
                 })
             }
         })
-        .then((data) => {
-            console.log(data)
-            return next()
-        })
+        // .then((data) => {
+        //     console.log('data2', data)
+        //     return next()
+        // })
         .catch((err) => {
             // console.log(err)
             return next({
                 log: err.detail,
                 status: 500,
-                message: { err: 'An add error occurred making new user' },
+                message: { err: 'An add error occurred verifying user' },
             })
         })// compare submitted password with save password from database
 };

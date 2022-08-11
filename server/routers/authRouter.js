@@ -4,7 +4,8 @@ const router = express.Router();
 const passport = require('passport');
 
 require('./oauth.js')
-require('https').globalAgent.options.rejectUnauthorized = false;
+// this fixes some 400 type yellow error on chrome
+// require('https').globalAgent.options.rejectUnauthorized = false;
 
 const isLoggedIn = (req, res, next) => {
     req.user ? next() : res.sendStatus(418);
