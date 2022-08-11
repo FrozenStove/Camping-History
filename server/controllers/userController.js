@@ -11,7 +11,8 @@ userController.newUser = (req, res, next) => {
 
     userDB.query(sqlAddVisit, insertArray)
         .then((data) => {
-            console.log(data)
+            console.log('new user added', data)
+            // res.locals.username = {username: username, user_id: data.rows[0]._id};
             return next()
         })
         .catch((err) => {

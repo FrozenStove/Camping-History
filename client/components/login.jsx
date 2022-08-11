@@ -17,7 +17,9 @@ class loginForm extends Component {
                 }}>
                 <input id="login-username" type="text" placeholder="Username"></input>
                 <input id="login-password" type="password" placeholder="Password"></input>
+                <br></br>
                 <input type='submit' value="Login"></input>
+                <input type='button' value="Sign up" onClick={this.props.signupClick}></input>
             </form>
         )
     }

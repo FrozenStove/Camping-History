@@ -18,7 +18,16 @@ router.post('/login',
     }
 )
 
-router.post('/signup')
+router.post('/signup',
+    userController.newUser,
+    userController.verifyUser,
+    sessionController.startSession,
+    cookieController.setSSIDCookie,
+    (req, res) => {
+        // return res.redirect('/')
+        return res.status(200).send({ username: res.locals.username })
+    }
+)
 
 router.delete('/logout',
     sessionController.endSession,

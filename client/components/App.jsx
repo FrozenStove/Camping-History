@@ -18,6 +18,7 @@ class App extends Component {
         this.deleteClick = this.deleteClick.bind(this);
         this.selectClick = this.selectClick.bind(this);
         this.getUsername = this.getUsername.bind(this);
+        this.signupClick = this.signupClick.bind(this);
         this.logoutClick = this.logoutClick.bind(this);
         this.loginClick = this.loginClick.bind(this);
         this.clearClick = this.clearClick.bind(this);
@@ -163,7 +164,6 @@ class App extends Component {
                 this.getHistory()
             })
             .catch((error) => console.log(error))
-
     }
     
     logoutClick(){
@@ -179,6 +179,35 @@ class App extends Component {
             })
             .catch((error) => console.log(error))
 
+        }
+
+        signupClick(){
+            const postBody = {
+                "username": document.getElementById('login-username').value,
+                "password": document.getElementById('login-password').value
+            }
+    
+            console.log('login postbody',postBody)
+            const postOptions = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postBody),
+                credentials: 'include'
+            }
+            console.log('login post option', postOptions);
+            fetch('/account/signup', postOptions)
+                .then(resp => resp.json())
+                .then((data) => {
+                    console.log(data)
+                    // create a popup or alert if status code is 204
+                    this.setState({ username: data })
+                })
+                .then(() => {
+                    this.getHistory()
+                })
+                .catch((error) => console.log(error))
         }
 
     componentDidMount() {
@@ -206,7 +235,7 @@ class App extends Component {
         if (this.state.username) {
             username = [`Welcome ${this.state.username.username}!`,<><br></br><button onClick={this.logoutClick}>Logout</button></>]
         } else {
-            username = <LoginForm loginClick={this.loginClick}></LoginForm>
+            username = <><LoginForm loginClick={this.loginClick} signupClick={this.signupClick}></LoginForm></>
         }
 
         return (
