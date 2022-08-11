@@ -1,22 +1,35 @@
 import React, { Component } from "react";
-import HistoryCard from "./historyCard.jsx"
+// import HistoryCard from "./historyCard.jsx"
 
 import esriConfig from "@arcgis/core/config.js";
 esriConfig.assetsPath = "./build/assets";
 
 // Default import
-import WebMap from "@arcgis/core/WebMap";
+// import WebMap from "@arcgis/core/WebMap";
 import MapGis from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
-import Extent from "@arcgis/core/geometry/Extent";
+// import Extent from "@arcgis/core/geometry/Extent";
 
-// import layer from "@es"
+// import Layer from "@arcgis/core/layers/Layer";
+import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 
-import { queryFeatures } from "@esri/arcgis-rest-feature-service";
+
+// import { getService } from '@esri/arcgis-rest-feature-service';
+// import { queryFeatures } from '@esri/arcgis-rest-feature-service';
+// // import * as arcgisRest from '@esri/arcgis-rest-request';
+// import { ApiKeyManager } from '@esri/arcgis-rest-request';
+
+
+// https://developers.arcgis.com/javascript/latest/add-a-feature-layer/
+
 // import { queryFeatures } from '@esri/arcgis-rest-feature-layer';
 
+// import { queryFeatures } from "@esri/arcgis-rest-feature-service";
+// import FeatureLayer from '@esri/arcgis-rest-feature-layer';
+// import FeatureLayer from '@esri/lay'
+
 // Namespace import
-import * as projection from "@arcgis/core/geometry/projection";
+// import * as projection from "@arcgis/core/geometry/projection";
 
 
 
@@ -31,7 +44,7 @@ class GisMap extends Component {
 
         esriConfig.apiKey = apiKey
 
-        // const authentication = arcgisRest.ApiKeyManager.fromKey(apiKey);
+        // const authentication = ApiKeyManager.fromKey(apiKey);
 
         const map = new MapGis({
             basemap: "arcgis-topographic" // Basemap layer service
@@ -43,6 +56,31 @@ class GisMap extends Component {
             zoom: 6,  // Sets the zoom LOD to 13
             container: "viewDiv" // Div element
         });
+
+        // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html
+
+        const parcelLayer = new FeatureLayer({
+            url: "https://services2.arcgis.com/AhxrK3F6WM8ECvDi/ArcGIS/rest/services/Campgrounds/FeatureServer/0"
+        });
+        map.add(parcelLayer);
+
+
+
+        // getService("https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads_Styled/FeatureServer/0", {
+        //     authentication
+        // }).then((metadata) => {
+        //     console.log('the get service',metadata);
+        // })
+
+        // queryFeatures({
+        //     url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/LA_County_Parcels/FeatureServer/0",
+        //     where: "UseType = 'Residential'",
+        //     resultRecordCount: 1,
+        //     authentication
+        //   }).then((results) => {
+        //     console.log('the query feature', results);
+        //     map.add(results);
+        //   })
 
         // new extent for the mapview where the spatialReference.wkid is 4326
         // const extent = new Extent({
@@ -58,12 +96,15 @@ class GisMap extends Component {
         // view.extent = extent;
 
 
-        const options = {
-            url:
-              "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
-            where: "Species = 'Oak'"
-          };
-          
+        // const options = {
+        //     url:
+        //         "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0",
+        //     where: "Species = 'Oak'"
+        // };
+
+        //   myQueryTask = new esri.tasks.QueryTask
+        //   ("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Water_Network_Base_Map/MapServer/78");
+
         //   queryFeatures(options)
         //     .then(response => {
         //       console.log(response.features.length); // 500
@@ -88,8 +129,6 @@ class GisMap extends Component {
         //         console.log(response.features);
         //         document.getElementById("viewDiv").textContent = JSON.stringify(response.features, null, 2);
         //     });
-
-
 
 
         return (

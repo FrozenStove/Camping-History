@@ -235,7 +235,7 @@ class App extends Component {
         if (this.state.username) {
             username = [`Welcome ${this.state.username.username}!`,<><br></br><button onClick={this.logoutClick}>Logout</button></>]
         } else {
-            username = <><LoginForm loginClick={this.loginClick} signupClick={this.signupClick}></LoginForm></>
+            username = <><LoginForm loginClick={this.loginClick} signupClick={this.signupClick} key={1}></LoginForm></>
         }
 
         return (
@@ -246,7 +246,7 @@ class App extends Component {
                 <button><img src="../assets/google.jpg"></img> Sign in with Google</button>
                 </div>
                 <div id="top-half">
-                    <GisMap></GisMap>
+                    <GisMap key={2}></GisMap>
                     <div id="side-bar">
                         <h2>Add a New Visit Here!</h2>
                         <form id="the-form"
