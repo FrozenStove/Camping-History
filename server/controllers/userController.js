@@ -40,9 +40,10 @@ userController.verifyUser = (req, res, next) => {
 
     userDB.query(sqlAddVisit, insertArray)
         .then((data) => {
+            console.log('verify user data', data)
             if (data.rows.length === 1) {
                 res.locals.success = true;
-                res.locals.username = username;
+                res.locals.username = {username: username, user_id: data.rows[0]._id};
                 return next()
             } else {
                 return next({

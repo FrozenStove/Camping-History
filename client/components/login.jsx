@@ -9,9 +9,10 @@ class loginForm extends Component {
     render() {
 
         return (
-            <form method="POST" action='/account/login'>
-                <input name="username" type="text" placeholder="username"></input>
-                <input name="password" type="password" placeholder="password"></input>
+            // <form method="POST" action='/account/login'>
+            <form onSubmit={this.props.loginClick}>
+                <input id="login-username" name="username" type="text" placeholder="username"></input>
+                <input id="login-password" name="password" type="password" placeholder="password"></input>
                 <input type='submit' value="login"></input>
             </form>
         )

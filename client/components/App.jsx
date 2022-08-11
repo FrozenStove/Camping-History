@@ -18,13 +18,15 @@ class App extends Component {
         this.deleteClick = this.deleteClick.bind(this);
         this.selectClick = this.selectClick.bind(this);
         this.clearClick = this.clearClick.bind(this);
+        this.loginClick = this.loginClick.bind(this);
     }
     handleClick() {
         const postBody = {
             "siteName": document.getElementById('site-input').value,
             "visitDate": document.getElementById('date-input').value,
             "username": document.getElementById('name-input').value,
-            "comment": document.getElementById('comment-input').value
+            "comment": document.getElementById('comment-input').value,
+            "user_id": this.state.username.user_id 
         }
         if (this.state.formAction === 'PATCH') {
             postBody._id = this.state.updateId;
@@ -95,7 +97,7 @@ class App extends Component {
             .then(resp => resp.json())
             .then((data) => {
                 // console.log(data);
-                this.setState({ history: data })
+                this.setState({ history: data.data, username: data.username })
                 // console.log(this.state.history)
                 // this.state.history.push(data);
             })
@@ -118,6 +120,34 @@ class App extends Component {
             .catch((error) => console.log(error))
 
     }
+
+    loginClick(){
+        const postBody = {
+            "siteName": document.getElementById('site-input').value,
+            "visitDate": document.getElementById('date-input').value,
+            "username": document.getElementById('name-input').value,
+            "comment": document.getElementById('comment-input').value
+        }
+
+        // console.log(postBody)
+        const postOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postBody)
+        }
+        // console.log(postOptions);
+        fetch('/account/login', postOptions)
+            .then(resp => resp.json())
+            .then((data) => {
+                // create a popup or alert if status code is 204
+                this.setState({ history: data })
+            })
+            .catch((error) => console.log(error))
+
+    }
+    
 
     componentDidMount() {
         // console.log(this.state.history)
@@ -143,7 +173,7 @@ class App extends Component {
         if (this.state.username) {
             username = `Welcome ${this.state.username}!`
         } else {
-            username = <LoginForm></LoginForm>
+            username = <LoginForm loginClick={this.loginClick}></LoginForm>
         }
 
         return (

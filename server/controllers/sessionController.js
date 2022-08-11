@@ -7,19 +7,12 @@ const sessionController = {};
 * verify whether or not the session is still valid.
 */
 sessionController.isLoggedIn = (req, res, next) => {
-  // write code here
-  // check if req includes cookies and whether there exists an ACTIVE session with that cookies id
   console.log('isLoggedIn Entered')
-  // console.log(Object.keys(req))
-  // console.log(req.cookies);
-  // this cookie MUST be parsed before it works, check the beginning of server.js
   const ssid = req.cookies.ssid;
-  // console.log('Cookie Request', ssid)
   Session.find({ cookieId: ssid }).exec()
     .then((response) => {
       console.log(response);
       if (response.length === 1) {
-        // if so, move on to next to redirect to /secret
         res.locals.hasActiveSession = true;
         return next();
       }

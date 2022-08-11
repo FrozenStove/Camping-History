@@ -46,9 +46,10 @@ app.get('/',
 
 // handle get request to the database
 app.get('/getvisit',
+    sessionController.isLoggedIn,
     dbController.getVisit,
     (req, res) => {
-        return res.status(200).send(res.locals.data)
+        return res.status(200).send({data: res.locals.data, username: res.locals.username})
     }
 );
 

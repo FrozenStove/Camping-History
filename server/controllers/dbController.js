@@ -27,7 +27,10 @@ db.addVisit = (req, res, next) => {
 db.getVisit = (req, res, next) => {
     const sqlGetVisit = `SELECT * FROM userData WHERE user_id=$1 ORDER BY _id;`;
     // THIS NEEDS TO BE FIXED FOR USER ACCOUNTS AND OAUTH
-    const insertArray = [1];
+    const insertArray = [null];
+    if (req.body.user_id){
+        insertArray[0] = req.body.user_id;
+    }
 
     userDB.query(sqlGetVisit, insertArray)
         .then((data) => {
