@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import HistoryCard from "./historyCard.jsx"
 import GisMap from "./GisMap.jsx";
+import LoginForm from "./login.jsx"
 
 
 class App extends Component {
@@ -10,6 +11,7 @@ class App extends Component {
             formAction: 'POST',
             history: [],
             selected: 0,
+            username: null
         }
         this.createClick = this.createClick.bind(this);
         this.updateClick = this.updateClick.bind(this);
@@ -100,10 +102,28 @@ class App extends Component {
             .catch((error) => console.log(error))
 
     }
+
+    getUsername(){
+        const getOptions = {
+            method: 'GET'
+        }
+        fetch('/account/', getOptions)
+            .then(resp => resp.json())
+            .then((data) => {
+                // console.log(data);
+                this.setState({ history: data })
+                // console.log(this.state.history)
+                // this.state.history.push(data);
+            })
+            .catch((error) => console.log(error))
+
+    }
+
     componentDidMount() {
         // console.log(this.state.history)
         // console.log('comdidmount')
         this.getHistory();
+        this.getUsername();
         // console.log(this.state.history)
 
     }
@@ -119,10 +139,18 @@ class App extends Component {
         } else {
             currentSelection = <p> Click an Entry Below to Update!</p>
         }
+        let username;
+        if (this.state.username) {
+            username = `Welcome ${this.state.username}!`
+        } else {
+            username = <LoginForm></LoginForm>
+        }
+
         return (
             <>
                 <div id="nav-bar">
                 <h1>Camping History</h1>
+                <h3>{username}</h3>
                 <button><img src="../assets/google.jpg"></img> Sign in with Google</button>
                 </div>
                 <div id="top-half">
