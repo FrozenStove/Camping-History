@@ -14,8 +14,15 @@ router.post('/login',
     cookieController.setSSIDCookie,
     (req, res) => {
         // return res.redirect('/')
-        return res.status(200).send({username : res.locals.username})
+        return res.status(200).send({ username: res.locals.username })
     }
 )
 
+router.post('/signup')
+
+router.delete('/logout',
+    sessionController.endSession,
+    (req, res) => {
+        return res.sendStatus(200)
+    });
 module.exports = router;

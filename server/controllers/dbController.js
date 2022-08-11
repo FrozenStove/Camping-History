@@ -6,10 +6,14 @@ const db = {}
 db.addVisit = (req, res, next) => {
     console.log('addvisit entered')
     // console.log('thebody: ', req.body);
-    const { siteName, visitDate, comment, username } = req.body;
-    const sqlAddVisit = `INSERT INTO userData (site_name, visit_date, comment, username, site_id, user_id)
+    const { user_id, siteName, visitDate, comment, username } = req.body;
+    let sqlAddVisit = `INSERT INTO userData (site_name, visit_date, comment, username, site_id, user_id)
     VALUES ($1, $2, $3, $4, $5, $6)`;
-    const insertArray = [siteName, visitDate, comment, username, 1, 1];
+    const insertArray = [siteName, visitDate, comment, username, 1, user_id];
+    console.log('addvisit:', insertArray)
+// if(!req.body.user_id){
+
+// }
 
     userDB.query(sqlAddVisit, insertArray)
         .then((data) => next())

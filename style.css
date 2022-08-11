@@ -53,7 +53,7 @@ h2 {
 #viewDiv {
     flex-grow: 1;
     background-color: cadetblue;
-    min-height: 600px;
+    min-height: 620px;
 }
 
 #history {

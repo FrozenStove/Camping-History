@@ -48,4 +48,13 @@ sessionController.startSession = (req, res, next) => {
     );
 };
 
+sessionController.endSession = (req, res, next) => {
+    console.log('Session Ended!')
+    Session.deleteOne({
+        cookieId: req.cookies.ssid
+    })
+    .then(() => next())
+    .catch((err) => next({ message: { error: 'User Already Logged Out or Session Expired' }, log: err })
+    );
+}
 module.exports = sessionController;

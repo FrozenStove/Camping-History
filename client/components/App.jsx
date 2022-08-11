@@ -18,8 +18,9 @@ class App extends Component {
         this.deleteClick = this.deleteClick.bind(this);
         this.selectClick = this.selectClick.bind(this);
         this.getUsername = this.getUsername.bind(this);
-        this.clearClick = this.clearClick.bind(this);
+        this.logoutClick = this.logoutClick.bind(this);
         this.loginClick = this.loginClick.bind(this);
+        this.clearClick = this.clearClick.bind(this);
     }
     handleClick() {
         const postBody = {
@@ -82,14 +83,15 @@ class App extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                "_id": id
+                "_id": id,
+                "user_id": this.state.username ? this.state.username.user_id : undefined
             })
         }
         console.log(delOptions);
         fetch('/deletevisit', delOptions)
             .then(resp => resp.json())
             .then((data) => {
-                this.setState({ history: data })
+                this.setState({ history: data , selected: undefined, updateId: undefined })
             })
             .catch((error) => console.log(error))
     }
@@ -164,6 +166,20 @@ class App extends Component {
 
     }
     
+    logoutClick(){
+        const delOptions = {
+            method: 'DELETE'
+        }
+        // console.log('login post option', postOptions);
+        fetch('/account/logout', delOptions)
+            .then((data) => {
+                console.log('logout text', data)
+                this.setState({username: {username: undefined, user_id: undefined}})
+                this.getHistory()
+            })
+            .catch((error) => console.log(error))
+
+        }
 
     componentDidMount() {
         // console.log(this.state.history)
@@ -181,13 +197,14 @@ class App extends Component {
         }
         let currentSelection;
         if (this.state.updateId) {
+            console.log('the selected history data', this.state.history[this.state.selected])
             currentSelection = (<HistoryCard history={this.state.history[this.state.selected]} deleteClick={this.deleteClick} selectClick={this.selectClick} key={0}></HistoryCard>)
         } else {
             currentSelection = <p> Click an Entry Below to Update!</p>
         }
         let username;
         if (this.state.username) {
-            username = `Welcome ${this.state.username.username}!`
+            username = [`Welcome ${this.state.username.username}!`,<><br></br><button onClick={this.logoutClick}>Logout</button></>]
         } else {
             username = <LoginForm loginClick={this.loginClick}></LoginForm>
         }
