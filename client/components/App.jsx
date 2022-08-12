@@ -11,7 +11,7 @@ class App extends Component {
             formAction: 'POST',
             history: [],
             selected: 0,
-            username: {username: undefined, user_id: undefined}
+            username: { username: undefined, user_id: undefined }
         }
         this.createClick = this.createClick.bind(this);
         this.updateClick = this.updateClick.bind(this);
@@ -31,7 +31,7 @@ class App extends Component {
             "comment": document.getElementById('comment-input').value,
             // "user_id": this.state.username.user_id 
         }
-        if (this.state.username){
+        if (this.state.username) {
             postBody.user_id = this.state.username.user_id;
         }
         console.log('currentstate: ', this.state)
@@ -92,14 +92,14 @@ class App extends Component {
         fetch('/deletevisit', delOptions)
             .then(resp => resp.json())
             .then((data) => {
-                this.setState({ history: data , selected: undefined, updateId: undefined })
+                this.setState({ history: data, selected: undefined, updateId: undefined })
             })
             .catch((error) => console.log(error))
     }
 
     getHistory() {
         const getBody = {
-            "user_id": this.state.username.user_id 
+            "user_id": this.state.username.user_id
         }
         // need to make this a post because chrome wont let us get with a body
         const getOptions = {
@@ -121,7 +121,7 @@ class App extends Component {
 
     }
 
-    getUsername(){
+    getUsername() {
         const getOptions = {
             method: 'GET'
         }
@@ -137,13 +137,13 @@ class App extends Component {
 
     }
 
-    loginClick(){
+    loginClick() {
         const postBody = {
             "username": document.getElementById('login-username').value,
             "password": document.getElementById('login-password').value
         }
 
-        console.log('login postbody',postBody)
+        console.log('login postbody', postBody)
         const postOptions = {
             method: 'POST',
             headers: {
@@ -165,8 +165,8 @@ class App extends Component {
             })
             .catch((error) => console.log(error))
     }
-    
-    logoutClick(){
+
+    logoutClick() {
         const delOptions = {
             method: 'DELETE'
         }
@@ -174,41 +174,41 @@ class App extends Component {
         fetch('/account/logout', delOptions)
             .then((data) => {
                 console.log('logout text', data)
-                this.setState({username: {username: undefined, user_id: undefined}})
+                this.setState({ username: { username: undefined, user_id: undefined } })
                 this.getHistory()
             })
             .catch((error) => console.log(error))
 
+    }
+
+    signupClick() {
+        const postBody = {
+            "username": document.getElementById('login-username').value,
+            "password": document.getElementById('login-password').value
         }
 
-        signupClick(){
-            const postBody = {
-                "username": document.getElementById('login-username').value,
-                "password": document.getElementById('login-password').value
-            }
-    
-            console.log('login postbody',postBody)
-            const postOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(postBody),
-                credentials: 'include'
-            }
-            console.log('login post option', postOptions);
-            fetch('/account/signup', postOptions)
-                .then(resp => resp.json())
-                .then((data) => {
-                    console.log(data)
-                    // create a popup or alert if status code is 204
-                    this.setState({ username: data })
-                })
-                .then(() => {
-                    this.getHistory()
-                })
-                .catch((error) => console.log(error))
+        console.log('login postbody', postBody)
+        const postOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(postBody),
+            credentials: 'include'
         }
+        console.log('login post option', postOptions);
+        fetch('/account/signup', postOptions)
+            .then(resp => resp.json())
+            .then((data) => {
+                console.log(data)
+                // create a popup or alert if status code is 204
+                this.setState({ username: data })
+            })
+            .then(() => {
+                this.getHistory()
+            })
+            .catch((error) => console.log(error))
+    }
 
     componentDidMount() {
         // console.log(this.state.history)
@@ -225,7 +225,7 @@ class App extends Component {
             hist.push(<HistoryCard history={this.state.history[i]} deleteClick={this.deleteClick} selectClick={this.selectClick} key={this.state.history[i]._id + 100} i={i}></HistoryCard>)
         }
         let currentSelection;
-        console.log('newest test situation',this.state.history, this.state.selected)
+        console.log('newest test situation', this.state.history, this.state.selected)
         console.log('updateid', this.state.updateId)
         if (this.state.updateId && this.state.history[this.state.selected]) {
             console.log('the selected history data', this.state.history[this.state.selected])
@@ -235,7 +235,7 @@ class App extends Component {
         }
         let username;
         if (this.state.username) {
-            username = [`Welcome ${this.state.username.username}!`,<><br></br><button onClick={this.logoutClick}>Logout</button></>]
+            username = [`Welcome ${this.state.username.username}!`, <><br></br><button onClick={this.logoutClick}>Logout</button></>]
         } else {
             username = <><LoginForm loginClick={this.loginClick} signupClick={this.signupClick} key={1}></LoginForm></>
         }
@@ -243,9 +243,11 @@ class App extends Component {
         return (
             <>
                 <div id="nav-bar">
-                <h1>Camping History</h1>
-                <h3>{username}</h3>
-                <button><img src="../assets/google.jpg"></img> Sign in with Google (WIP)</button>
+                    <h1>Camping History</h1>
+                    <h3>{username}</h3>
+                    <a href="http://localhost:3000/auth/google">
+                        <button><img src="../assets/google.jpg"></img> Sign in with Google (WIP)</button>
+                    </a>
                 </div>
                 <div id="top-half">
                     <GisMap key={2}></GisMap>

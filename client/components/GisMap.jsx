@@ -58,7 +58,7 @@ class GisMap extends Component {
         });
 
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html
-
+        // https://developers.arcgis.com/javascript/latest/display-a-pop-up/
         const popupCampSites = {
           "title": "Campgrounds",
           "content": "<b>Campground:</b> {Campground}<br><br><b>Type:</b> {TYPE}<br><br><b>Detail:</b> {DETAIL}"

@@ -102,6 +102,12 @@ h2 {
     /* max-height: 50px; */
 }
 
+#nav-bar a{
+    margin-right: 30px;
+    display: flex;
+    align-items: center;
+}
+
 #nav-bar img{
     max-height: 50px;
 }
