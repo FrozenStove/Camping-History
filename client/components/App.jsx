@@ -225,7 +225,9 @@ class App extends Component {
             hist.push(<HistoryCard history={this.state.history[i]} deleteClick={this.deleteClick} selectClick={this.selectClick} key={this.state.history[i]._id + 100} i={i}></HistoryCard>)
         }
         let currentSelection;
-        if (this.state.updateId) {
+        console.log('newest test situation',this.state.history, this.state.selected)
+        console.log('updateid', this.state.updateId)
+        if (this.state.updateId && this.state.history[this.state.selected]) {
             console.log('the selected history data', this.state.history[this.state.selected])
             currentSelection = (<HistoryCard history={this.state.history[this.state.selected]} deleteClick={this.deleteClick} selectClick={this.selectClick} key={0}></HistoryCard>)
         } else {
@@ -243,7 +245,7 @@ class App extends Component {
                 <div id="nav-bar">
                 <h1>Camping History</h1>
                 <h3>{username}</h3>
-                <button><img src="../assets/google.jpg"></img> Sign in with Google</button>
+                <button><img src="../assets/google.jpg"></img> Sign in with Google (WIP)</button>
                 </div>
                 <div id="top-half">
                     <GisMap key={2}></GisMap>
@@ -256,7 +258,7 @@ class App extends Component {
                             }}>
                             <input type="text" required id="site-input" placeholder="Site Name"></input>
                             <input type="date" required id="date-input" placeholder="Date"></input>
-                            <input type="text" required id="comment-input" placeholder="Comments"></input>
+                            <textarea type="text" required id="comment-input" placeholder="Comments"></textarea>
                             <input type="text" required id="name-input" placeholder="Name"></input>
                             <input type="submit" onClick={this.createClick} value="New Entry"></input>
                             <input type="submit" onClick={this.updateClick} value="Update Entry"></input>

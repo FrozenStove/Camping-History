@@ -8,6 +8,11 @@
     /* border: 1px solid black; */
     font-family: Arial, Helvetica, sans-serif;
 }
+
+body {
+    background-color: #f0f0f0;
+}
+
 #top-half {
     display: flex;
 }
@@ -35,6 +40,11 @@ input {
     /* height:500px; */
 }
 
+textarea{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
 #the-form {
     display: flex;
     flex-direction: column;
@@ -54,6 +64,8 @@ h2 {
     flex-grow: 1;
     background-color: cadetblue;
     min-height: 620px;
+    border: 3px solid black;
+    /* border-radius: 10px; */
 }
 
 #history {
@@ -65,11 +77,12 @@ h2 {
     /* width: 24%; */
     /* flex-grow: 1; */
     min-width: 100px;
-    max-width: 300px;
+    max-width: 250px;
     display: flex;
     flex-direction: column;
     box-shadow: 3px 3px 5px 6px #51AFC1;
     margin: 20px;
+    background-color: #fff;
 }
 
 .history-card button {
@@ -98,6 +111,7 @@ h2 {
     text-align: center;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
 }
 
 #nav-bar form{

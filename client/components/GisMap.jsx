@@ -39,7 +39,7 @@ class GisMap extends Component {
     }
 
     render() {
-        // console.log(esriConfig)
+        
         const apiKey = "AAPKec24e4d4b57446a980bc8938cccb1ed2bb1PKtJrlt66E8A6XVF3Ji_xxaVGFlYRw3gTHIphMe5arHUSFJCt2TpYzo7BSEyN";
 
         esriConfig.apiKey = apiKey
@@ -59,10 +59,40 @@ class GisMap extends Component {
 
         // https://developers.arcgis.com/javascript/latest/api-reference/esri-layers-FeatureLayer.html
 
+        const popupCampSites = {
+          "title": "Campgrounds",
+          "content": "<b>Campground:</b> {Campground}<br><br><b>Type:</b> {TYPE}<br><br><b>Detail:</b> {DETAIL}"
+        }
+
         const parcelLayer = new FeatureLayer({
-            url: "https://services2.arcgis.com/AhxrK3F6WM8ECvDi/ArcGIS/rest/services/Campgrounds/FeatureServer/0"
+            url: "https://services2.arcgis.com/AhxrK3F6WM8ECvDi/ArcGIS/rest/services/Campgrounds/FeatureServer/0",
+            outFields: ["Campground", "TYPE", "DETAIL"],
+            popupTemplate: popupCampSites,
         });
+
         map.add(parcelLayer);
+
+        // const popupTrailheads = {
+        //     "title": "Trailhead",
+        //     "content": "<b>Trail:</b> {TRL_NAME}<br><b>City:</b> {CITY_JUR}<br><b>Cross Street:</b> {X_STREET}<br><b>Parking:</b> {PARKING}<br><b>Elevation:</b> {ELEV_FT} ft"
+        //   }
+
+        // const trailheads = new FeatureLayer({
+        //     url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads_Styled/FeatureServer/0",
+        //     outFields: ["TRL_NAME","CITY_JUR","X_STREET","PARKING","ELEV_FT"],
+        //     popupTemplate: popupTrailheads
+        //   });
+
+    
+        //   map.add(trailheads);
+        
+
+        return (
+            <div id="viewDiv">
+            </div>
+        )
+    }
+}
 
 
 
@@ -129,13 +159,4 @@ class GisMap extends Component {
         //         console.log(response.features);
         //         document.getElementById("viewDiv").textContent = JSON.stringify(response.features, null, 2);
         //     });
-
-
-        return (
-            <div id="viewDiv">
-            </div>
-        )
-    }
-}
-
 export default GisMap;
