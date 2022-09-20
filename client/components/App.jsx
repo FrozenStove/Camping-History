@@ -235,6 +235,7 @@ class App extends Component {
         }
         let username;
         if (this.state.username) {
+            // I think this component needs a key before it gets updated to <LoginForm />
             username = [`Welcome ${this.state.username.username}!`, <><br></br><button onClick={this.logoutClick}>Logout</button></>]
         } else {
             username = <><LoginForm loginClick={this.loginClick} signupClick={this.signupClick} key={1}></LoginForm></>
@@ -254,7 +255,7 @@ class App extends Component {
                     <div id="side-bar">
                         <h2>Add a New Visit Here!</h2>
                         <form id="the-form"
-                            onSubmit={() => {
+                            onSubmit={(event) => {
                                 this.handleClick();
                                 event.preventDefault();
                             }}>
