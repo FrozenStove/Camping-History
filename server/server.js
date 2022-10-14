@@ -1,13 +1,14 @@
 const express = require('express');
-const app = express();
-const path = require('path');
 const cookieParser = require('cookie-parser')
+const path = require('path');
+// const cookieController = require('./controllers/cookieController.js')
+// const userController = require('./controllers/userController.js')
 const dbController = require('./controllers/dbController.js');
-const cookieController = require('./controllers/cookieController.js')
-const userController = require('./controllers/userController.js')
 const sessionController = require('./controllers/sessionController.js')
 const authRouter = require('./routers/authRouter.js')
 const accountRouter = require('./routers/accountRouter.js')
+
+const app = express();
 
 const PORT = 3000;
 

@@ -1,4 +1,4 @@
-const userDB = require('../model/model.js')
+const userDB = require('../models/model')
 
 const db = {}
 
