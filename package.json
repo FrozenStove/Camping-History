@@ -6,8 +6,9 @@
     "scripts": {
         "start": "nodemon server/server.js",
         "build": "webpack",
-        "dev": "webpack serve --open",
+        "dev": "webpack serve --open --watch",
         "hot": "webpack serve --hot --progress",
+        "dev8080": "concurrently \"NODE_ENV=development webpack --watch --config ./webpack.config.js\" \"webpack serve\"",
         "docker": "concurrently \" docker build -t lenny/camping-hist . \" \" docker run lenny/camping-hist\"",
         "dock": "docker build -t lenny/camping-hist .",
         "list": "ls -R"

@@ -236,7 +236,7 @@ class App extends Component {
         let username;
         if (this.state.username) {
             // I think this component needs a key before it gets updated to <LoginForm />
-            username = [`Welcome ${this.state.username.username}!`, <><br></br><button onClick={this.logoutClick}>Logout</button></>]
+            username = [`Welcome ${this.state.username.username}!`, <><br></br><button onClick={this.logoutClick} key={599}>Logout</button></>]
         } else {
             username = <><LoginForm loginClick={this.loginClick} signupClick={this.signupClick} key={1}></LoginForm></>
         }
