@@ -1,0 +1,28 @@
+---
+version: '3'
+services:
+  test:
+    image: frozenstove/camping-history
+    container_name: mm-test
+    ports:
+    # we are not using the dev/proxy server for tests
+    # We think that jest will start its own server on 3000
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
+      - node_modules:/usr/src/app/node_modules
+    command: 'npm run test'
+    depends_on:
+      - postgres-db-test
+  postgres-db-test:
+    image: frozenstoveunit13devops/mm-postgres
+    container_name: mm-test-database
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=mmadmin
+      - POSTGRES_DB=mmdb
+    volumes:
+      - test-db-volume:/var/lib/postgresql/data
+volumes:
+  node_modules:
+  test-db-volume:

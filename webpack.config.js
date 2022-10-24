@@ -31,9 +31,9 @@ module.exports = {
       publicPath: '/',
       directory: path.resolve(__dirname)
     },
-    // proxy: {
-    //   '/*': 'http://localhost:3000/',
-    // },
+    proxy: {
+      '/': 'http://localhost:3000/',
+    },
   },
   module: {
     rules: [
