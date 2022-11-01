@@ -1,37 +1,10 @@
 import React, { Component } from "react";
-// import HistoryCard from "./historyCard.jsx"
-
 import esriConfig from "@arcgis/core/config.js";
-esriConfig.assetsPath = "./build/assets";
-
-// Default import
-// import WebMap from "@arcgis/core/WebMap";
 import MapGis from "@arcgis/core/Map";
 import MapView from "@arcgis/core/views/MapView";
-// import Extent from "@arcgis/core/geometry/Extent";
-
-// import Layer from "@arcgis/core/layers/Layer";
 import FeatureLayer from "@arcgis/core/layers/FeatureLayer";
 
-
-// import { getService } from '@esri/arcgis-rest-feature-service';
-// import { queryFeatures } from '@esri/arcgis-rest-feature-service';
-// // import * as arcgisRest from '@esri/arcgis-rest-request';
-// import { ApiKeyManager } from '@esri/arcgis-rest-request';
-
-
-// https://developers.arcgis.com/javascript/latest/add-a-feature-layer/
-
-// import { queryFeatures } from '@esri/arcgis-rest-feature-layer';
-
-// import { queryFeatures } from "@esri/arcgis-rest-feature-service";
-// import FeatureLayer from '@esri/arcgis-rest-feature-layer';
-// import FeatureLayer from '@esri/lay'
-
-// Namespace import
-// import * as projection from "@arcgis/core/geometry/projection";
-
-
+esriConfig.assetsPath = "./build/assets";
 
 class GisMap extends Component {
     constructor(props) {
@@ -43,8 +16,6 @@ class GisMap extends Component {
         const apiKey = "AAPKec24e4d4b57446a980bc8938cccb1ed2bb1PKtJrlt66E8A6XVF3Ji_xxaVGFlYRw3gTHIphMe5arHUSFJCt2TpYzo7BSEyN";
 
         esriConfig.apiKey = apiKey
-
-        // const authentication = ApiKeyManager.fromKey(apiKey);
 
         const map = new MapGis({
             basemap: "arcgis-topographic" // Basemap layer service
@@ -71,28 +42,29 @@ class GisMap extends Component {
         });
 
         map.add(parcelLayer);
-
-        // const popupTrailheads = {
-        //     "title": "Trailhead",
-        //     "content": "<b>Trail:</b> {TRL_NAME}<br><b>City:</b> {CITY_JUR}<br><b>Cross Street:</b> {X_STREET}<br><b>Parking:</b> {PARKING}<br><b>Elevation:</b> {ELEV_FT} ft"
-        //   }
-
-        // const trailheads = new FeatureLayer({
-        //     url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads_Styled/FeatureServer/0",
-        //     outFields: ["TRL_NAME","CITY_JUR","X_STREET","PARKING","ELEV_FT"],
-        //     popupTemplate: popupTrailheads
-        //   });
-
-    
-        //   map.add(trailheads);
         
-
         return (
             <div id="viewDiv">
             </div>
         )
     }
 }
+export default GisMap;
+
+
+// const popupTrailheads = {
+//     "title": "Trailhead",
+//     "content": "<b>Trail:</b> {TRL_NAME}<br><b>City:</b> {CITY_JUR}<br><b>Cross Street:</b> {X_STREET}<br><b>Parking:</b> {PARKING}<br><b>Elevation:</b> {ELEV_FT} ft"
+//   }
+
+// const trailheads = new FeatureLayer({
+//     url: "https://services3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Trailheads_Styled/FeatureServer/0",
+//     outFields: ["TRL_NAME","CITY_JUR","X_STREET","PARKING","ELEV_FT"],
+//     popupTemplate: popupTrailheads
+//   });
+
+
+//   map.add(trailheads);
 
 
 
@@ -159,4 +131,3 @@ class GisMap extends Component {
         //         console.log(response.features);
         //         document.getElementById("viewDiv").textContent = JSON.stringify(response.features, null, 2);
         //     });
-export default GisMap;
