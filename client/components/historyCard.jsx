@@ -8,18 +8,11 @@ class HistoryCard extends Component {
 
     render() {
         const dateOptions = {
-            // dateStyle: "full",
             timeStyle: "short"
         
           }
         const { _id, site_name, visit_date, comment, username } = this.props.history;
-        // console.log('hiscards', this.props)
-        // const deleteClick = this.props.deleteClick;
-        // console.log('histcard', _id)
-        // console.log(visit_date)
-        // console.log(typeof visit_date)
         const cleanDate = new Date(visit_date).toLocaleDateString('en-us')
-        // console.log('cleandate', cleanDate)
         return (
             <div className="history-card" id={_id} onClick={() => this.props.selectClick(this.props.i, _id)}>
                 <p label="Camp Site">Camp Site: {site_name}</p>

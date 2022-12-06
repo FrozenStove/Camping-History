@@ -11,7 +11,7 @@ class loginForm extends Component {
         return (
             // <form method="POST" action='/account/login'>
             <form
-                onSubmit={() => {
+                onSubmit={(event) => {
                     this.props.loginClick();
                     event.preventDefault();
                 }}>
