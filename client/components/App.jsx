@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import HistoryCard from "./historyCard.jsx"
 import GisMap from "./GisMap.jsx";
 import LoginForm from "./login.jsx"
-
+import '../../style.css'
 
 class App extends Component {
     constructor(props) {
