@@ -13,7 +13,7 @@ module.exports = {
   },
   mode: 'development',
   plugins: [new HtmlWebpackPlugin({
-    filename: 'bundle.html',
+    filename: 'index.html',
     template: 'index.html'
   }),
   new SourceMapDevToolPlugin({
